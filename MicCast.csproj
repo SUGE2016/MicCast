@@ -1,0 +1,43 @@
+<Project ToolsVersion="Current" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition="'$(Configuration)' == ''">Release</Configuration>
+    <OutputType>WinExe</OutputType>
+    <AssemblyName>MicCast</AssemblyName>
+    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <PlatformTarget>x64</PlatformTarget>
+    <OutputPath>bin\$(Configuration)\</OutputPath>
+    <IntermediateOutputPath>obj\$(Configuration)\MicCast\</IntermediateOutputPath>
+    <Optimize>true</Optimize>
+    <Deterministic>true</Deterministic>
+    <LangVersion>7.3</LangVersion>
+    <DebugType>none</DebugType>
+    <ApplicationManifest>src\app.manifest</ApplicationManifest>
+    <PathMap>$(MSBuildProjectDirectory)=/MicCast</PathMap>
+    <WindowsSdkVersion>10.0.19041.0</WindowsSdkVersion>
+    <WindowsSdkRoot Condition="'$(WindowsSdkRoot)' == ''">$(MSBuildProgramFiles32)\Windows Kits\10</WindowsSdkRoot>
+    <FrameworkRuntimeRoot>$(SystemRoot)\Microsoft.NET\Framework64\v4.0.30319</FrameworkRuntimeRoot>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Runtime" />
+    <Reference Include="System.Runtime.InteropServices.WindowsRuntime" />
+    <Reference Include="System.Runtime.WindowsRuntime">
+      <HintPath>$(FrameworkRuntimeRoot)\System.Runtime.WindowsRuntime.dll</HintPath>
+      <Private>false</Private>
+    </Reference>
+    <Reference Include="Windows">
+      <HintPath>$(WindowsSdkRoot)\UnionMetadata\$(WindowsSdkVersion)\Windows.winmd</HintPath>
+      <IsWinMDFile>true</IsWinMDFile>
+      <Private>false</Private>
+    </Reference>
+    <Compile Include="src\*.cs" />
+    <EmbeddedResource Include="LICENSE"><LogicalName>MicCast.LICENSE</LogicalName></EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Target Name="CheckPrerequisites" BeforeTargets="ResolveReferences">
+    <Error Condition="!Exists('$(WindowsSdkRoot)\UnionMetadata\$(WindowsSdkVersion)\Windows.winmd')" Text="Install Windows SDK $(WindowsSdkVersion), including Windows SDK for Desktop C# Apps." />
+  </Target>
+</Project>
