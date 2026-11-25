@@ -30,7 +30,7 @@ sealed class MicForm : Form {
         AccessibleName="投屏麦克风"; AccessibleDescription=status;
         action.Click+=async(s,e)=>await Toggle();
         var help=new ToolStripMenuItem("使用说明");
-        help.Click+=(s,e)=>tip.Show("先连接 ESHOW 并开启声音分享。\n左键开始 / 停止扩声，拖动可移动。\n右键退出，自动恢复原来的声音输出。",this,Width/2,Height,10000);
+        help.Click+=(s,e)=>tip.Show("先连接投屏软件并开启电脑声音分享。\n左键开始 / 停止扩声，拖动可移动。\n右键退出，自动恢复原来的声音输出。",this,Width/2,Height,10000);
         var exit=new ToolStripMenuItem("退出"); exit.Click+=(s,e)=>Close();
         var install=new ToolStripMenuItem("安装 VB-CABLE…"); install.Click+=(s,e)=>DriverSetup.ShowGuide(this);
         menu.Items.AddRange(new ToolStripItem[]{action,help,install,new ToolStripSeparator(),exit});
